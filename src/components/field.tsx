@@ -6,32 +6,32 @@ import {
   Match,
   Switch,
 } from "solid-js";
-import { hasWon, Player, togglePlayer } from "../utils/player";
+import { hasWon, PlayerState, toggleButtonState } from "../utils/player";
 import FieldButton from "./fieldbutton";
-import WinnerModal from "./winnermodal";
+import ResultModal from "./resultmodal";
 
 const Field: Component = () => {
   const [states, setState] = createSignal(
-    Array.from({ length: 9 }, () => Player.None)
+    Array.from({ length: 9 }, () => PlayerState.None)
   );
-  const [turn, setTurn] = createSignal(Player.Circle);
+  const [turn, setTurn] = createSignal(PlayerState.Circle);
   const winner = createMemo(() => hasWon(states()));
 
   const handleClick = (id: number) => {
     let tmp = states();
     let t = turn();
-    if (tmp[id] === Player.None) {
+    if (tmp[id] === PlayerState.None) {
       tmp[id] = t;
       setState([...tmp]);
 
-      t = togglePlayer(t);
+      t = toggleButtonState(t);
       setTurn(t);
     }
   };
 
   const restartGame = () => {
-    setState(Array.from({ length: 9 }, () => Player.None));
-    setTurn(Player.Circle);
+    setState(Array.from({ length: 9 }, () => PlayerState.None));
+    setTurn(PlayerState.Circle);
   };
 
   return (
@@ -44,11 +44,14 @@ const Field: Component = () => {
         </For>
       </div>
       <Switch>
-        <Match when={winner() === Player.Circle}>
-          <WinnerModal restartGame={restartGame} winner="Circle" />
+        <Match when={winner() === PlayerState.Circle}>
+          <ResultModal restartGame={restartGame} result="Winner: Circle" />
         </Match>
-        <Match when={winner() === Player.Cross}>
-          <WinnerModal restartGame={restartGame} winner="Cross" />
+        <Match when={winner() === PlayerState.Cross}>
+          <ResultModal restartGame={restartGame} result="Winner: Cross" />
+        </Match>
+        <Match when={winner() === PlayerState.Draw}>
+          <ResultModal restartGame={restartGame} result="Draw" />
         </Match>
       </Switch>
     </div>

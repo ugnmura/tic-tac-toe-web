@@ -1,9 +1,9 @@
 import { FaRegularCircle, FaSolidX } from "solid-icons/fa";
 import { Component, Match, Switch } from "solid-js";
-import { Player } from "../utils/player";
+import { PlayerState } from "../utils/player";
 
 export interface FieldButtonProps {
-  state: Player;
+  state: PlayerState;
   onClick: () => void;
 }
 
@@ -14,10 +14,10 @@ const FieldButton: Component<FieldButtonProps> = (props) => {
       class="bg-gray-300 rounded min-w-[8rem] min-h-[8rem] md:min-w-[12rem] md:min-h-[12rem] lg:min-w-[16rem] lg:min-h-[16rem] m-2 flex justify-center items-center"
     >
       <Switch fallback={<></>}>
-        <Match when={props.state === Player.Cross}>
+        <Match when={props.state === PlayerState.Cross}>
           <FaSolidX class="text-[6rem] md:text-[8rem] lg:text-[12rem]" />
         </Match>
-        <Match when={props.state === Player.Circle}>
+        <Match when={props.state === PlayerState.Circle}>
           <FaRegularCircle class="text-[6rem] md:text-[8rem] lg:text-[12rem]" />
         </Match>
       </Switch>

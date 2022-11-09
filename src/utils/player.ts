@@ -1,21 +1,22 @@
-export enum Player {
+export enum PlayerState {
   None,
   Cross,
   Circle,
+  Draw,
 }
 
-export const togglePlayer = (state: Player) => {
+export const toggleButtonState = (state: PlayerState) => {
   switch (state) {
-    case Player.Circle:
-      return Player.Cross;
-    case Player.Cross:
-      return Player.Circle;
+    case PlayerState.Circle:
+      return PlayerState.Cross;
+    case PlayerState.Cross:
+      return PlayerState.Circle;
   }
 
-  return Player.None;
+  return PlayerState.None;
 };
 
-export const hasWon = (states: Player[]) => {
+export const hasWon = (states: PlayerState[]) => {
   const winning = [
     [0, 1, 2],
     [3, 4, 5],
@@ -30,11 +31,22 @@ export const hasWon = (states: Player[]) => {
   for (let w of winning) {
     const [a, b, c] = w;
 
-    if (states[a] === Player.None) continue;
+    if (states[a] === PlayerState.None) continue;
     if (states[a] === states[b] && states[a] == states[c]) {
       return states[a];
     }
   }
 
-  return Player.None;
+  let draw = true;
+  for (let s of states) {
+    if (s === PlayerState.None) {
+      draw = false;
+    }
+  }
+
+  if (draw) {
+    return PlayerState.Draw;
+  }
+
+  return PlayerState.None;
 };
