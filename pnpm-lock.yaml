@@ -1,7 +1,9 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@solidjs/router': ^0.5.0
   '@types/node': ^18.11.9
+  '@types/uuid': ^8.3.4
   autoprefixer: ^10.4.13
   gun: ^0.2020.1238
   postcss: ^8.4.18
@@ -9,16 +11,20 @@ specifiers:
   solid-js: ^1.5.1
   tailwindcss: ^3.2.2
   typescript: ^4.8.2
+  uuid: ^9.0.0
   vite: ^3.0.9
   vite-plugin-solid: ^2.3.0
 
 dependencies:
+  '@solidjs/router': 0.5.0_solid-js@1.5.1
   gun: 0.2020.1238
   solid-icons: 1.0.4_solid-js@1.5.1
   solid-js: 1.5.1
+  uuid: 9.0.0
 
 devDependencies:
   '@types/node': 18.11.9
+  '@types/uuid': 8.3.4
   autoprefixer: 10.4.13_postcss@8.4.18
   postcss: 8.4.18
   tailwindcss: 3.2.2_postcss@8.4.18
@@ -433,8 +439,20 @@ packages:
     dev: false
     optional: true
 
+  /@solidjs/router/0.5.0_solid-js@1.5.1:
+    resolution: {integrity: sha512-rNR07l21tWWDVmCbaapggB89rEX7jlM2XChpTLqEGEnj46LzVZ8zgvjcF6NNKScByAlLpoQUkVIjB2KHpcMi+w==}
+    peerDependencies:
+      solid-js: ^1.5.3
+    dependencies:
+      solid-js: 1.5.1
+    dev: false
+
   /@types/node/18.11.9:
     resolution: {integrity: sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==}
+    dev: true
+
+  /@types/uuid/8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
     dev: true
 
   /acorn-node/1.8.2:
@@ -1373,6 +1391,11 @@ packages:
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: false
 
   /vite-plugin-solid/2.3.0_solid-js@1.5.1+vite@3.0.9:
     resolution: {integrity: sha512-N2sa54C3UZC2nN5vpj5o6YP+XdIAZW6n6xv8OasxNAcAJPFeZT7EOVvumL0V4c8hBz1yuYniMWdESY8807fVSg==}

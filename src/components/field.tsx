@@ -9,6 +9,11 @@ import {
 import { hasWon, PlayerState, toggleButtonState } from "../utils/player";
 import FieldButton from "./fieldbutton";
 import ResultModal from "./resultmodal";
+import { useLocation } from "@solidjs/router";
+import { v4 } from "uuid";
+import GUN from "gun";
+
+const gun = GUN();
 
 const Field: Component = () => {
   const [states, setState] = createSignal(
@@ -26,13 +31,48 @@ const Field: Component = () => {
 
       t = toggleButtonState(t);
       setTurn(t);
+
+      sendState();
     }
   };
 
   const restartGame = () => {
     setState(Array.from({ length: 9 }, () => PlayerState.None));
     setTurn(PlayerState.Circle);
+
+    sendState();
   };
+
+  const sendState = () => {
+    gameNode.put({
+      field: { ...states() },
+      turn: turn(),
+    });
+  };
+
+  const gameID = useLocation().query.id || v4();
+  const gameNode = gun.get(gameID);
+  console.log(gameID);
+
+  gameNode.once((data) => {
+    console.log(data);
+    if (!data?.field) {
+      gameNode.put({
+        field: { ...states() },
+      });
+    }
+  });
+
+  gameNode.get("field").on((data) => {
+    console.log("Retrieved Data: ", data);
+
+    const field = Object.values(data).slice(0, 9) as PlayerState[];
+    setState(field);
+  });
+
+  gameNode.get("turn").on((data) => {
+    setTurn(data);
+  });
 
   return (
     <div>
