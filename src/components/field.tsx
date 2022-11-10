@@ -21,19 +21,22 @@ const Field: Component = () => {
   );
   const [turn, setTurn] = createSignal(PlayerState.Circle);
   const winner = createMemo(() => hasWon(states()));
+  let myTurn = PlayerState.None;
 
   const handleClick = (id: number) => {
     let tmp = states();
     let t = turn();
-    if (tmp[id] === PlayerState.None) {
-      tmp[id] = t;
-      setState([...tmp]);
 
-      t = toggleButtonState(t);
-      setTurn(t);
+    if (t !== myTurn) return;
+    if (tmp[id] !== PlayerState.None) return;
 
-      sendState();
-    }
+    tmp[id] = t;
+    setState([...tmp]);
+
+    t = toggleButtonState(t);
+    setTurn(t);
+
+    sendState();
   };
 
   const restartGame = () => {
@@ -50,6 +53,20 @@ const Field: Component = () => {
     });
   };
 
+  const getPlayer = () => {
+    let playerID = localStorage.getItem("playerID");
+    if (!playerID) {
+      playerID = v4();
+      localStorage.setItem("playerID", playerID);
+    }
+
+    return playerID;
+  };
+
+  const getTurnFromIndex = (idx: number) => {
+    return idx % 2 === 0 ? PlayerState.Circle : PlayerState.Cross;
+  };
+
   let gameID = useLocation().query.id;
   if (!gameID) {
     gameID = v4();
@@ -57,16 +74,29 @@ const Field: Component = () => {
     navigate(`/?id=${gameID}`, { replace: true });
   }
   const gameNode = gun.get(gameID);
-  console.log("GameID:", gameID);
 
-  gameNode.once((data) => {
+  const playerID = getPlayer();
+
+  gameNode.get("players").once((data) => {
     if (!data) {
-      sendState();
+      gameNode.put({ players: { ...[playerID] } });
+    }
+  });
+
+  gameNode.get("players").on((data) => {
+    const values = Object.values(data);
+    const players = values.slice(0, values.length - 1) as string[];
+    if (!players.includes(playerID)) {
+      gameNode.put({ players: { ...[playerID, ...players] } });
+      myTurn = getTurnFromIndex(players.length);
+    } else {
+      myTurn = getTurnFromIndex(players.indexOf(playerID));
     }
   });
 
   gameNode.get("field").on((data) => {
-    const field = Object.values(data).slice(0, 9) as PlayerState[];
+    const values = Object.values(data);
+    const field = values.slice(0, values.length - 1) as PlayerState[];
     setState(field);
   });
 
