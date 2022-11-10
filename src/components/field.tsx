@@ -20,12 +20,21 @@ const Field: Component = () => {
     Array.from({ length: 9 }, () => PlayerState.None)
   );
   const [turn, setTurn] = createSignal(PlayerState.Circle);
-  const winner = createMemo(() => hasWon(states()));
   let myTurn = PlayerState.None;
+
+  const winner = createMemo(() => {
+    const result = hasWon(states());
+    if (result !== PlayerState.None) {
+      myTurn = PlayerState.None;
+    }
+    return result;
+  });
 
   const handleClick = (id: number) => {
     let tmp = states();
     let t = turn();
+
+    if (myTurn === PlayerState.None) myTurn = t;
 
     if (t !== myTurn) return;
     if (tmp[id] !== PlayerState.None) return;
@@ -42,6 +51,7 @@ const Field: Component = () => {
   const restartGame = () => {
     setState(Array.from({ length: 9 }, () => PlayerState.None));
     setTurn(PlayerState.Circle);
+    myTurn = PlayerState.None;
 
     sendState();
   };
@@ -53,48 +63,15 @@ const Field: Component = () => {
     });
   };
 
-  const getPlayer = () => {
-    let playerID = localStorage.getItem("playerID");
-    if (!playerID) {
-      playerID = v4();
-      localStorage.setItem("playerID", playerID);
-    }
-
-    return playerID;
-  };
-
-  const getTurnFromIndex = (idx: number) => {
-    return idx % 2 === 0 ? PlayerState.Circle : PlayerState.Cross;
-  };
-
   const loc = useLocation();
   let gameID = loc.query.id;
   if (!gameID) {
     gameID = v4();
     const pathname = loc.pathname;
     const navigate = useNavigate();
-    navigate(`${pathname}/?id=${gameID}`, { replace: true });
+    navigate(`${pathname}?id=${gameID}`, { replace: true });
   }
   const gameNode = gun.get(gameID);
-
-  const playerID = getPlayer();
-
-  gameNode.get("players").once((data) => {
-    if (!data) {
-      gameNode.put({ players: { ...[playerID] } });
-    }
-  });
-
-  gameNode.get("players").on((data) => {
-    const values = Object.values(data);
-    const players = values.slice(0, values.length - 1) as string[];
-    if (!players.includes(playerID)) {
-      gameNode.put({ players: { ...[playerID, ...players] } });
-      myTurn = getTurnFromIndex(players.length);
-    } else {
-      myTurn = getTurnFromIndex(players.indexOf(playerID));
-    }
-  });
 
   gameNode.get("field").on((data) => {
     const values = Object.values(data);
