@@ -9,7 +9,7 @@ import {
 import { hasWon, PlayerState, toggleButtonState } from "../utils/player";
 import FieldButton from "./fieldbutton";
 import ResultModal from "./resultmodal";
-import { useLocation } from "@solidjs/router";
+import { useLocation, useNavigate } from "@solidjs/router";
 import { v4 } from "uuid";
 import GUN from "gun";
 
@@ -50,7 +50,12 @@ const Field: Component = () => {
     });
   };
 
-  const gameID = useLocation().query.id || v4();
+  let gameID = useLocation().query.id;
+  if (!gameID) {
+    gameID = v4();
+    const navigate = useNavigate();
+    navigate(`/?id=${gameID}`, { replace: true });
+  }
   const gameNode = gun.get(gameID);
   console.log("GameID:", gameID);
 
