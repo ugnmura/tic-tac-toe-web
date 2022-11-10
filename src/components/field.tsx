@@ -67,11 +67,13 @@ const Field: Component = () => {
     return idx % 2 === 0 ? PlayerState.Circle : PlayerState.Cross;
   };
 
-  let gameID = useLocation().query.id;
+  const loc = useLocation();
+  let gameID = loc.query.id;
   if (!gameID) {
     gameID = v4();
+    const pathname = loc.pathname;
     const navigate = useNavigate();
-    navigate(`/?id=${gameID}`, { replace: true });
+    navigate(`${pathname}/?id=${gameID}`, { replace: true });
   }
   const gameNode = gun.get(gameID);
 
