@@ -1,6 +1,7 @@
-import { FaRegularCircle, FaSolidX } from "solid-icons/fa";
 import { Component, Match, Switch } from "solid-js";
 import { PlayerState } from "../utils/player";
+import circle from "../svgs/circle.svg";
+import cross from "../svgs/cross.svg";
 
 export interface FieldButtonProps {
   state: PlayerState;
@@ -15,10 +16,10 @@ const FieldButton: Component<FieldButtonProps> = (props) => {
     >
       <Switch fallback={<></>}>
         <Match when={props.state === PlayerState.Cross}>
-          <FaSolidX class="text-[6rem] md:text-[8rem] lg:text-[12rem]" />
+          <img src={cross} alt="cross" />
         </Match>
         <Match when={props.state === PlayerState.Circle}>
-          <FaRegularCircle class="text-[6rem] md:text-[8rem] lg:text-[12rem]" />
+          <img src={circle} alt="circle" />
         </Match>
       </Switch>
     </div>
