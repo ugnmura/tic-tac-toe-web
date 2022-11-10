@@ -13,7 +13,7 @@ import { useLocation } from "@solidjs/router";
 import { v4 } from "uuid";
 import GUN from "gun";
 
-const gun = GUN();
+const gun = GUN("https://mvp-gun.herokuapp.com/gun");
 
 const Field: Component = () => {
   const [states, setState] = createSignal(
@@ -52,20 +52,15 @@ const Field: Component = () => {
 
   const gameID = useLocation().query.id || v4();
   const gameNode = gun.get(gameID);
-  console.log(gameID);
+  console.log("GameID:", gameID);
 
   gameNode.once((data) => {
-    console.log(data);
-    if (!data?.field) {
-      gameNode.put({
-        field: { ...states() },
-      });
+    if (!data) {
+      sendState();
     }
   });
 
   gameNode.get("field").on((data) => {
-    console.log("Retrieved Data: ", data);
-
     const field = Object.values(data).slice(0, 9) as PlayerState[];
     setState(field);
   });
