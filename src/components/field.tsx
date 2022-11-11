@@ -83,6 +83,9 @@ const Field: Component = () => {
     setTurn(data);
   });
 
+  const [copied, setCopied] = createSignal(false);
+  let copyTimeout: NodeJS.Timeout;
+
   return (
     <div>
       <div class="grid grid-cols-3 grid-rows-3">
@@ -103,6 +106,25 @@ const Field: Component = () => {
           <ResultModal restartGame={restartGame} result="Draw" />
         </Match>
       </Switch>
+      <div class="flex justify-center align-middle m-auto">
+        <span
+          onClick={() => {
+            setCopied(true);
+            if (copyTimeout) clearTimeout(copyTimeout);
+
+            copyTimeout = setTimeout(() => {
+              setCopied(false);
+            }, 5 * 1000);
+
+            navigator.clipboard.writeText(window.location.href);
+          }}
+          class="rounded my-4 py-2 px-4 border-4 border-green bg-lavender text-green cursor-pointer"
+        >
+          {copied() ? "Link Copied!" : "Get Link"}
+        </span>
+        <span>
+        </span>
+      </div>
     </div>
   );
 };
