@@ -91,10 +91,10 @@ const Field: Component = () => {
   };
 
   const loc = useLocation();
+  const pathname = loc.pathname;
   let gameID = loc.query.id;
   if (!gameID) {
     gameID = v4();
-    const pathname = loc.pathname;
     const navigate = useNavigate();
     navigate(`${pathname}?id=${gameID}`, { replace: true });
   }
@@ -121,17 +121,28 @@ const Field: Component = () => {
         class="flex justify-between items-center rounded bg-lavender border-green border-4 px-4 py-2 m-4"
       >
         <span>
-          <label for="id" class="px-2">
+          <label for="gameid-input" class="px-2">
             Join Game ID
           </label>
           <input
-            name="id"
-            id="id"
+            id="gameid-input"
             type="text"
             class="px-2 rounded border-green border-2 w-[max(80vw, 20rem)]"
           />
         </span>
-        <button type="submit" class="bg-terra mx-2 border-green border-2 px-3 py-1 rounded">
+        <button
+          onClick={(e) => {
+            const input = document.getElementById(
+              "gameid-input"
+            ) as HTMLInputElement;
+            if (input.value) {
+              document.location.href = `${pathname}?id=${input.value}`;
+            }
+
+            e.preventDefault();
+          }}
+          class="bg-terra mx-2 border-green border-2 px-3 py-1 rounded"
+        >
           Join
         </button>
       </form>
