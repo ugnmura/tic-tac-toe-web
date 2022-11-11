@@ -13,6 +13,7 @@ const FieldButton: Component<FieldButtonProps> = (props) => {
     <button
       onClick={props.onClick}
       class="btn hover-shadow border-8 field flex justify-center items-center m-auto"
+      aria-label="Tic Tac Toe Button"
     >
       <Switch fallback={<></>}>
         <Match when={props.state === PlayerState.Circle}>
