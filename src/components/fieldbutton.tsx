@@ -10,9 +10,9 @@ export interface FieldButtonProps {
 
 const FieldButton: Component<FieldButtonProps> = (props) => {
   return (
-    <div
+    <button
       onClick={props.onClick}
-      class="rounded bg-lavender border-green border-8 field m-2 flex justify-center items-center"
+      class="btn border-8 field flex justify-center items-center m-2"
     >
       <Switch fallback={<></>}>
         <Match when={props.state === PlayerState.Circle}>
@@ -22,7 +22,7 @@ const FieldButton: Component<FieldButtonProps> = (props) => {
           <img src={cross} alt="cross" class="animate-spawn" />
         </Match>
       </Switch>
-    </div>
+    </button>
   );
 };
 

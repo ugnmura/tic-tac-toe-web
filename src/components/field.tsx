@@ -107,7 +107,7 @@ const Field: Component = () => {
         </Match>
       </Switch>
       <div class="flex justify-center align-middle m-auto">
-        <span
+        <button
           onClick={() => {
             setCopied(true);
             if (copyTimeout) clearTimeout(copyTimeout);
@@ -118,12 +118,10 @@ const Field: Component = () => {
 
             navigator.clipboard.writeText(window.location.href);
           }}
-          class="rounded my-4 py-2 px-4 border-4 border-green bg-lavender text-green cursor-pointer"
+          class="btn border-4 my-4 py-2 px-4"
         >
           {copied() ? "Link Copied!" : "Get Link"}
-        </span>
-        <span>
-        </span>
+        </button>
       </div>
     </div>
   );

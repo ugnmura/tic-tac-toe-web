@@ -8,3 +8,12 @@
   aspect-ratio: 1;
 }
 
+.btn {
+  @apply rounded text-green bg-lavender border-green outline-none shadow-lg transition focus-visible:shadow-black;
+}
+
+@media (hover: hover) {
+  .btn {
+    @apply hover:shadow-black;
+  }
+}
