@@ -54,16 +54,15 @@ const Field: Component = () => {
     if (e.code.startsWith("Digit")) {
       const num = parseInt(e.code.charAt(e.code.length - 1)) - 1;
       if (num >= 0) {
-          handleClick(num);
+        handleClick(num);
       }
-    }
-    else if (e.code.startsWith("Numpad")) {
+    } else if (e.code.startsWith("Numpad")) {
       let num = parseInt(e.code.charAt(e.code.length - 1));
       if (num >= 7 && num <= 9) num -= 6;
       if (num >= 1 && num <= 3) num += 6;
       num -= 1;
       if (num >= 0) {
-          handleClick(num);
+        handleClick(num);
       }
     }
   };
@@ -116,7 +115,27 @@ const Field: Component = () => {
 
   return (
     <div>
-      <div class="grid grid-cols-3 grid-rows-3">
+      <form
+        action="/"
+        method="get"
+        class="flex justify-between items-center rounded bg-lavender border-green border-4 px-4 py-2 m-4"
+      >
+        <span>
+          <label for="id" class="px-2">
+            Join Game ID
+          </label>
+          <input
+            name="id"
+            id="id"
+            type="text"
+            class="px-2 rounded border-green border-2 w-[max(80vw, 20rem)]"
+          />
+        </span>
+        <button type="submit" class="bg-terra mx-2 border-green border-2 px-3 py-1 rounded">
+          Join
+        </button>
+      </form>
+      <div class="grid grid-cols-3 grid-rows-3 gap-4 aspect-square">
         <For each={states()}>
           {(state, i) => (
             <FieldButton state={state} onClick={() => handleClick(i())} />
@@ -134,7 +153,7 @@ const Field: Component = () => {
           <ResultModal restartGame={restartGame} result="Draw" />
         </Match>
       </Switch>
-      <div class="flex justify-center align-middle m-auto">
+      <div class="flex flex-col justify-center align-middle">
         <button
           onClick={() => {
             setCopied(true);
@@ -144,11 +163,11 @@ const Field: Component = () => {
               setCopied(false);
             }, 5 * 1000);
 
-            navigator.clipboard.writeText(window.location.href);
+            navigator.clipboard.writeText(gameID);
           }}
-          class="btn hover-shadow border-4 my-4 py-2 px-4"
+          class="btn hover-shadow border-4 my-4 py-2 px-4 m-auto"
         >
-          {copied() ? "Link Copied!" : "Get Link"}
+          {copied() ? "Game ID Copied!" : "Get Game ID"}
         </button>
       </div>
     </div>
