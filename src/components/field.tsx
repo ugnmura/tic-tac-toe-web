@@ -60,7 +60,7 @@ const Field: Component = () => {
     else if (e.code.startsWith("Numpad")) {
       let num = parseInt(e.code.charAt(e.code.length - 1));
       if (num >= 7 && num <= 9) num -= 6;
-      if (num >= 1 && num <= 3) num == 6;
+      if (num >= 1 && num <= 3) num += 6;
       num -= 1;
       if (num >= 0) {
           handleClick(num);
