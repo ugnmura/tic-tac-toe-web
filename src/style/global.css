@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind screens;
+
+.field {
+  width: min(25vw, 25vh);
+  aspect-ratio: 1;
+}

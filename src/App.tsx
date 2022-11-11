@@ -5,7 +5,7 @@ import { Router } from "@solidjs/router";
 const App: Component = () => {
   return (
     <Router>
-      <div class="absolute inset-0 flex justify-center items-center">
+      <div class="absolute inset-0 flex justify-center items-center bg-artichoke">
         <Field />
       </div>
     </Router>
