@@ -14,18 +14,27 @@ module.exports = {
         spawn: {
           "0%": {
             transform: "scale(200%)",
-            opacity: "0%"
+            opacity: "0%",
           },
           "100%": {
             transform: "scale(100%)",
-            opacity: "100%"
+            opacity: "100%",
           },
         },
+        fadein: {
+          "0%": {
+            opacity: "0%",
+          },
+          "100%": {
+            opacity: "100%",
+          },
+        }
       },
       animation: {
-        spawn: "spawn 500ms cubic-bezier(1, 0.3, 0.7, 0)",
+        fadein: "fadein 500ms both",
+        spawn: "spawn 500ms cubic-bezier(1, 0.3, 0.7, 0) both",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animation-delay")],
 };
