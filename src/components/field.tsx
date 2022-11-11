@@ -146,7 +146,7 @@ const Field: Component = () => {
 
             navigator.clipboard.writeText(window.location.href);
           }}
-          class="btn border-4 my-4 py-2 px-4"
+          class="btn hover-shadow border-4 my-4 py-2 px-4"
         >
           {copied() ? "Link Copied!" : "Get Link"}
         </button>

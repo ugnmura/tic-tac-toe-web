@@ -7,7 +7,7 @@ module.exports = {
         green: "#002500",
         artichoke: "#929982",
         lavender: "#f8e5ee",
-        eggplant: "#553E4E",
+        terra: "#E07A5F",
         purple: "#1C0118",
       },
       keyframes: {
@@ -23,7 +23,7 @@ module.exports = {
         },
       },
       animation: {
-        spawn: "spawn 0.5s cubic-bezier(1, 0.3, 0.7, 0)",
+        spawn: "spawn 500ms cubic-bezier(1, 0.3, 0.7, 0)",
       },
     },
   },

@@ -12,7 +12,7 @@ const FieldButton: Component<FieldButtonProps> = (props) => {
   return (
     <button
       onClick={props.onClick}
-      class="btn border-8 field flex justify-center items-center m-2"
+      class="btn hover-shadow border-8 field flex justify-center items-center m-2"
     >
       <Switch fallback={<></>}>
         <Match when={props.state === PlayerState.Circle}>

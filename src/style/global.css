@@ -9,11 +9,15 @@
 }
 
 .btn {
-  @apply rounded text-green bg-lavender border-green outline-none shadow-lg transition focus-visible:shadow-black;
+  @apply rounded text-green bg-lavender border-green outline-none;
+}
+
+.hover-shadow {
+  @apply focus-visible:shadow-black shadow-lg transition;
 }
 
 @media (hover: hover) {
-  .btn {
+  .hover-shadow {
     @apply hover:shadow-black;
   }
 }

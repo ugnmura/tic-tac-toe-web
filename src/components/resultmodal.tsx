@@ -11,7 +11,7 @@ const ResultModal: Component<WinnerModalProps> = (props) => {
     <Modal>
       <div class="flex flex-col">
         <h3 class="m-3 text-4xl text-center">{props.result}</h3>
-        <span onClick={props.restartGame} class="py-2 px-3 rounded bg-gray-300 m-auto cursor-pointer">Restart Game</span>
+        <button onClick={props.restartGame} class="py-2 px-3 rounded border-green border-2 hover-shadow bg-terra text-green m-auto cursor-pointer">Restart Game</button>
       </div>
     </Modal>
   );
