@@ -4,6 +4,8 @@ import {
   createSignal,
   For,
   Match,
+  onCleanup,
+  onMount,
   Switch,
 } from "solid-js";
 import { hasWon, PlayerState, toggleButtonState } from "../utils/player";
@@ -47,6 +49,32 @@ const Field: Component = () => {
 
     sendState();
   };
+
+  const keydownEvent = (e: KeyboardEvent) => {
+    if (e.code.startsWith("Digit")) {
+      const num = parseInt(e.code.charAt(e.code.length - 1)) - 1;
+      if (num >= 0) {
+          handleClick(num);
+      }
+    }
+    else if (e.code.startsWith("Numpad")) {
+      let num = parseInt(e.code.charAt(e.code.length - 1));
+      if (num >= 7 && num <= 9) num -= 6;
+      if (num >= 1 && num <= 3) num == 6;
+      num -= 1;
+      if (num >= 0) {
+          handleClick(num);
+      }
+    }
+  };
+
+  onMount(() => {
+    window.addEventListener("keydown", keydownEvent);
+  });
+
+  onCleanup(() => {
+    window.removeEventListener("keydown", keydownEvent);
+  });
 
   const restartGame = () => {
     setState(Array.from({ length: 9 }, () => PlayerState.None));
