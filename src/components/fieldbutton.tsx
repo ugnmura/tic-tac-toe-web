@@ -15,11 +15,11 @@ const FieldButton: Component<FieldButtonProps> = (props) => {
       class="rounded bg-lavender border-green border-8 field m-2 flex justify-center items-center"
     >
       <Switch fallback={<></>}>
-        <Match when={props.state === PlayerState.Cross}>
-          <img src={cross} alt="cross" />
-        </Match>
         <Match when={props.state === PlayerState.Circle}>
-          <img src={circle} alt="circle" />
+          <img src={circle} alt="circle" class="animate-spawn" />
+        </Match>
+        <Match when={props.state === PlayerState.Cross}>
+          <img src={cross} alt="cross" class="animate-spawn" />
         </Match>
       </Switch>
     </div>
