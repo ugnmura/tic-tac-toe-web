@@ -116,9 +116,7 @@ const Field: Component = () => {
   return (
     <div>
       <form
-        action="/"
-        method="get"
-        class="flex justify-between items-center rounded bg-lavender border-green border-4 px-4 py-2 m-4"
+        class="flex justify-between items-center flex-col sm:flex-row gap-y-1 rounded bg-lavender border-green border-4 px-4 py-2 mx-2 my-4 w-[max(80vw, 20rem)]"
       >
         <span>
           <label for="gameid-input" class="px-2">

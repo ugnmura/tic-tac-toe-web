@@ -4,7 +4,7 @@
 @tailwind screens;
 
 .field {
-  width: min(30vw, 25vh);
+  width: min(27.5vw, 25vh);
   aspect-ratio: 1;
 }
 
