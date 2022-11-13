@@ -46,7 +46,7 @@ const CreateGameMenu: Component<CreateGameMenuProps> = (props) => {
               return;
             }
 
-            document.location.href = `${pathname}game/?id=${gameID}`;
+            document.location.href = `${pathname}/game/?id=${gameID}`;
           }}
         >
           Create

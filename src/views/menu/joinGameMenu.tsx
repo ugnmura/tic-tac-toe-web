@@ -41,7 +41,7 @@ const JoinGameMenu: Component<JoinGameMenuProps> = (props) => {
                 setError("Game does not exist!");
                 return;
               }
-              document.location.href = `${pathname}game/?id=${modalInput.value}`;
+              document.location.href = `${pathname}/game/?id=${modalInput.value}`;
             }
           }}
         >
