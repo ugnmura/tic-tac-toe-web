@@ -13,8 +13,8 @@ export default defineConfig(({ mode }) => {
         manifest: {
           name: "Tic Tac Toe GunJS",
           short_name: "TTT",
-          scope: "/",
-          start_url: process.env.VITE_BASE_PATH ?? "/",
+          scope: process.env.VITE_BASE_PATH ?? "/",
+          start_url: "/",
           icons: [
             {
               src: "assets/icons/manifest-icon-192.maskable.png",
