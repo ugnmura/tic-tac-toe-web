@@ -1,4 +1,4 @@
-import { useLocation } from "@solidjs/router";
+import { useNavigate } from "@solidjs/router";
 import { Component, createSignal, Setter, Show } from "solid-js";
 import { v4 } from "uuid";
 import Modal from "../../components/modal";
@@ -11,8 +11,7 @@ export interface CreateGameMenuProps {
 
 const CreateGameMenu: Component<CreateGameMenuProps> = (props) => {
   const [error, setError] = createSignal<string | undefined>(undefined);
-  const loc = useLocation();
-  const pathname = loc.pathname;
+  const navigate = useNavigate();
 
   let modalInput: HTMLInputElement | undefined;
 
@@ -46,7 +45,7 @@ const CreateGameMenu: Component<CreateGameMenuProps> = (props) => {
               return;
             }
 
-            document.location.href = `${pathname}/game/?id=${gameID}`;
+            navigate(`game/?id=${gameID}`);
           }}
         >
           Create
