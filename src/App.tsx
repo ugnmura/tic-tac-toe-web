@@ -1,13 +1,15 @@
-import type { Component } from "solid-js";
-import Field from "./components/field";
-import { Router } from "@solidjs/router";
+import { Component, lazy } from "solid-js";
+import { Route, Router, Routes } from "@solidjs/router";
+const Game = lazy(() => import("./views/game"));
+const Menu = lazy(() => import("./views/menu"));
 
 const App: Component = () => {
   return (
     <Router>
-      <div class="absolute inset-0 flex justify-center items-center bg-artichoke">
-        <Field />
-      </div>
+      <Routes>
+        <Route path="/" component={Menu}></Route>
+        <Route path="/game" component={Game}></Route>
+      </Routes>
     </Router>
   );
 };
