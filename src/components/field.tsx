@@ -1,27 +1,49 @@
 import {
   Component,
   createMemo,
+  createResource,
   createSignal,
   For,
   Match,
   onCleanup,
   onMount,
+  Show,
   Switch,
 } from "solid-js";
 import { hasWon, PlayerState, toggleButtonState } from "../utils/player";
 import FieldButton from "./fieldbutton";
 import ResultModal from "./resultmodal";
-import { useLocation, useNavigate } from "@solidjs/router";
-import { v4 } from "uuid";
-import GUN from "gun";
-
-const gun = GUN("https://mvp-gun.herokuapp.com/gun");
+import { A, useLocation } from "@solidjs/router";
+import Modal from "./modal";
+import { gameExists, getGame, updateGameState } from "../utils/gameManager";
 
 const Field: Component = () => {
   const [states, setState] = createSignal(
     Array.from({ length: 9 }, () => PlayerState.None)
   );
   const [turn, setTurn] = createSignal(PlayerState.Circle);
+
+  const loc = useLocation();
+  let gameID = loc.query.id;
+
+  const [gameFound] = createResource(async () => {
+    if (!gameID) {
+      return false;
+    }
+    return await gameExists(gameID);
+  });
+
+  const gameNode = getGame(gameID);
+  gameNode.get("field").on((data) => {
+    const values = Object.values(data);
+    const field = values.slice(0, values.length - 1) as PlayerState[];
+    setState(field);
+  });
+
+  gameNode.get("turn").on((data) => {
+    setTurn(data);
+  });
+
   let myTurn = PlayerState.None;
 
   const winner = createMemo(() => {
@@ -84,66 +106,25 @@ const Field: Component = () => {
   };
 
   const sendState = () => {
-    gameNode.put({
-      field: { ...states() },
-      turn: turn(),
-    });
+    updateGameState(gameID, { field: states(), turn: turn() });
   };
-
-  const loc = useLocation();
-  const pathname = loc.pathname;
-  let gameID = loc.query.id;
-  if (!gameID) {
-    gameID = v4();
-    const navigate = useNavigate();
-    navigate(`${pathname}?id=${gameID}`, { replace: true });
-  }
-  const gameNode = gun.get(gameID);
-
-  gameNode.get("field").on((data) => {
-    const values = Object.values(data);
-    const field = values.slice(0, values.length - 1) as PlayerState[];
-    setState(field);
-  });
-
-  gameNode.get("turn").on((data) => {
-    setTurn(data);
-  });
 
   const [copied, setCopied] = createSignal(false);
   let copyTimeout: NodeJS.Timeout;
 
   return (
     <div>
-      <form
-        class="flex justify-between items-center flex-col sm:flex-row gap-y-1 rounded bg-lavender border-green border-4 px-4 py-2 mx-2 my-4 w-[max(80vw, 20rem)]"
-      >
-        <span>
-          <label for="gameid-input" class="px-2">
-            Join Game ID
-          </label>
-          <input
-            id="gameid-input"
-            type="text"
-            class="px-2 rounded border-green border-2 w-[max(80vw, 20rem)]"
-          />
-        </span>
-        <button
-          onClick={(e) => {
-            const input = document.getElementById(
-              "gameid-input"
-            ) as HTMLInputElement;
-            if (input.value) {
-              document.location.href = `${pathname}?id=${input.value}`;
-            }
-
-            e.preventDefault();
-          }}
-          class="bg-terra mx-2 border-green border-2 px-3 py-1 rounded"
-        >
-          Join
-        </button>
-      </form>
+      <Show when={!gameFound.loading && !gameFound()}>
+        <Modal>
+          <span>Could not find lobby</span>
+          <A
+            href="/"
+            class="bg-terra mx-2 border-green border-2 px-4 py-2 rounded"
+          >
+            Back to Main Menu
+          </A>
+        </Modal>
+      </Show>
       <div class="grid grid-cols-3 grid-rows-3 gap-4 aspect-square">
         <For each={states()}>
           {(state, i) => (
@@ -162,7 +143,7 @@ const Field: Component = () => {
           <ResultModal restartGame={restartGame} result="Draw" />
         </Match>
       </Switch>
-      <div class="flex flex-col justify-center align-middle">
+      <div class="flex flex-row justify-center align-middle gap-x-3">
         <button
           onClick={() => {
             setCopied(true);
@@ -174,10 +155,13 @@ const Field: Component = () => {
 
             navigator.clipboard.writeText(gameID);
           }}
-          class="btn hover-shadow border-4 my-4 py-2 px-4 m-auto"
+          class="btn hover-shadow border-4 my-4 py-2 px-4"
         >
           {copied() ? "Game ID Copied!" : "Get Game ID"}
         </button>
+        <A href="/" class="btn hover-shadow border-4 my-4 py-2 px-4">
+          Leave Game
+        </A>
       </div>
     </div>
   );
