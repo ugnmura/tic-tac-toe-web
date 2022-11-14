@@ -116,10 +116,10 @@ const Field: Component = () => {
     <div>
       <Show when={!gameFound.loading && !gameFound()}>
         <Modal>
-          <span>Could not find lobby</span>
+          <div class="text-center mx-auto">Could not find lobby</div>
           <A
             href="/"
-            class="bg-terra mx-2 border-green border-2 px-4 py-2 rounded"
+            class="modal-btn hover-scale bg-terra px-4 py-2 block"
           >
             Back to Main Menu
           </A>
