@@ -16,7 +16,11 @@ const CreateGameMenu: Component<CreateGameMenuProps> = (props) => {
   let modalInput: HTMLInputElement | undefined;
 
   return (
-    <Modal cancel={() => props.setMenu("main")}>
+    <Modal
+      backgroundClass="animate-fadein"
+      foregroundClass="animate-popin"
+      cancel={() => props.setMenu("main")}
+    >
       <form>
         <span class="flex justify-between items-center flex-col sm:flex-row gap-x-2">
           <label for="creategameinput">Game ID (leave blank for random)</label>

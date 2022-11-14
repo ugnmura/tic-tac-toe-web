@@ -28,11 +28,20 @@ module.exports = {
           "100%": {
             opacity: "100%",
           },
-        }
+        },
+        popin: {
+          "0%": {
+            transform: "scale(0%)",
+          },
+          "100%": {
+            transform: "scale(100%)",
+          },
+        },
       },
       animation: {
         fadein: "fadein 500ms both",
         spawn: "spawn 500ms cubic-bezier(1, 0.3, 0.7, 0) both",
+        popin: "popin 500ms cubic-bezier(0.5, 0, 0.25, 1.5) both",
       },
     },
   },
