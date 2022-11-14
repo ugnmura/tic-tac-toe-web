@@ -12,12 +12,24 @@
   @apply rounded text-green bg-lavender border-green outline-none;
 }
 
+.modal-btn {
+  @apply rounded border-green border-2 text-green cursor-pointer;
+}
+
 .hover-shadow {
   @apply focus-visible:shadow-black shadow-lg transition;
+}
+
+.hover-scale {
+  @apply scale-100 focus-visible:scale-110 transition;
 }
 
 @media (hover: hover) {
   .hover-shadow {
     @apply hover:shadow-black;
+  }
+
+  .hover-scale {
+    @apply hover:scale-105;
   }
 }

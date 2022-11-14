@@ -16,7 +16,7 @@ const ResultModal: Component<WinnerModalProps> = (props) => {
         <h3 class="m-3 text-4xl text-center">{props.result}</h3>
         <button
           onClick={props.restartGame}
-          class="py-2 px-3 rounded border-green border-2 bg-terra text-green m-auto cursor-pointer"
+          class="modal-btn hover-scale bg-terra py-2 px-3 m-auto"
         >
           Restart Game
         </button>

@@ -34,7 +34,16 @@ const JoinGameMenu: Component<JoinGameMenuProps> = (props) => {
           <span class="block text-red-500">{error}</span>
         </Show>
         <button
-          class="bg-terra mt-2 border-green border-2 px-3 py-1 rounded float-right"
+          class="modal-btn hover-scale bg-lavender mt-2 border-green border-2 px-3 py-1 rounded float-left"
+          onClick={async (e) => {
+            e.preventDefault();
+            props.setMenu("main");
+          }}
+        >
+          Back
+        </button>
+        <button
+          class="modal-btn hover-scale bg-terra mt-2 px-3 py-1 float-right"
           onClick={async (e) => {
             e.preventDefault();
 
@@ -50,15 +59,6 @@ const JoinGameMenu: Component<JoinGameMenuProps> = (props) => {
           }}
         >
           Join
-        </button>
-        <button
-          class="bg-lavender mt-2 border-green border-2 px-3 py-1 rounded float-left"
-          onClick={async (e) => {
-            e.preventDefault();
-            props.setMenu("main");
-          }}
-        >
-          Back
         </button>
       </form>
     </Modal>
