@@ -128,7 +128,11 @@ const Field: Component = () => {
       <div class="grid grid-cols-3 grid-rows-3 gap-4 aspect-square">
         <For each={states()}>
           {(state, i) => (
-            <FieldButton state={state} onClick={() => handleClick(i())} />
+            <FieldButton
+              active={winner() === PlayerState.None}
+              state={state}
+              onClick={() => handleClick(i())}
+            />
           )}
         </For>
       </div>

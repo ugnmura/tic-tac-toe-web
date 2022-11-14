@@ -6,6 +6,7 @@ import cross from "../svgs/cross.svg";
 export interface FieldButtonProps {
   state: PlayerState;
   onClick: () => void;
+  active: boolean;
 }
 
 const FieldButton: Component<FieldButtonProps> = (props) => {
@@ -14,6 +15,7 @@ const FieldButton: Component<FieldButtonProps> = (props) => {
       onClick={props.onClick}
       class="btn hover-shadow border-8 field flex justify-center items-center m-auto"
       aria-label="Tic Tac Toe Button"
+      tabIndex={props.active ? 0 : -1}
     >
       <Switch fallback={<></>}>
         <Match when={props.state === PlayerState.Circle}>
