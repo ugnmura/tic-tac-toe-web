@@ -6,7 +6,7 @@ export interface LayoutProps {
 
 const Layout: Component<LayoutProps> = (props) => {
   return (
-    <div class="absolute inset-0 flex justify-center flex-col items-center bg-artichoke">
+    <div class="absolute inset-0 flex justify-center flex-col items-center bg-artichoke overflow-hidden">
       {props.children}
     </div>
   );
