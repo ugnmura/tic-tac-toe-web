@@ -53,8 +53,10 @@ const JoinGameMenu: Component<JoinGameMenuProps> = (props) => {
                 setError("Game does not exist!");
                 return;
               }
-
               navigate(`game/?id=${modalInput.value}`);
+            } else {
+              setError("Enter a Game ID");
+              return;
             }
           }}
         >
