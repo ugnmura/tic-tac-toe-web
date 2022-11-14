@@ -11,24 +11,22 @@ const Menu: Component = () => {
   return (
     <Layout>
       <h1 class="text-3xl text-center">Welcome to Tic Tac Toe!</h1>
+      <div class="m-2 flex gap-x-3">
+        <button
+          onClick={() => setMenu("create")}
+          class="btn hover-shadow border-4 my-4 py-2 px-4"
+        >
+          Create Game
+        </button>
+        <button
+          onClick={() => setMenu("join")}
+          class="btn hover-shadow border-4 my-4 py-2 px-4"
+        >
+          Join Game
+        </button>
+      </div>
 
       <Switch>
-        <Match when={menu() === "main"}>
-          <div class="m-2 flex gap-x-3">
-            <button
-              onClick={() => setMenu("create")}
-              class="btn hover-shadow border-4 my-4 py-2 px-4"
-            >
-              Create Game
-            </button>
-            <button
-              onClick={() => setMenu("join")}
-              class="btn hover-shadow border-4 my-4 py-2 px-4"
-            >
-              Join Game
-            </button>
-          </div>
-        </Match>
         <Match when={menu() === "create"}>
           <CreateGameMenu setMenu={setMenu} />
         </Match>
