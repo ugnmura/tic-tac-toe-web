@@ -9,7 +9,7 @@ export interface GameData {
 }
 
 export const getGame = (gameID: string) => {
-  const gameNode = gun.get(gameID);
+  const gameNode = gun.get(`TTT:${gameID}`);
   return gameNode;
 };
 
