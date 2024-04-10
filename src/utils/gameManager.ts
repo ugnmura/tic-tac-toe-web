@@ -1,7 +1,7 @@
 import GUN from "gun";
 import { PlayerState } from "./player";
 
-const gun = GUN("https://mvp-gun.herokuapp.com/gun");
+const gun = GUN("gunjs.sushiwaumai.com");
 
 export interface GameData {
   field: number[];
