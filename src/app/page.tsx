@@ -1,7 +1,7 @@
 const Menu = () => {
   return (
-    <div className="min-h-screen grid place-content-center bg-base-200 text-base-content px-4">
-      <div className="text-center space-y-6 max-w-screen-md">
+    <div className="min-h-screen grid place-content-center bg-base-200 text-base-content">
+      <div className="text-center space-y-6 max-w-screen-md p-4">
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-wide text-primary">
           Welcome to
         </h1>

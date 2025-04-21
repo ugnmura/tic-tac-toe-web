@@ -4,23 +4,19 @@ import Image from "next/image";
 
 export type FieldState = "none" | "circle" | "cross";
 
-interface FieldButtonProps {
+interface FieldButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   state: FieldState;
-  onClick: () => void;
-  active: boolean;
 }
 
 const FieldButton: React.FC<FieldButtonProps> = ({
   state,
-  onClick,
-  active,
+  ...props
 }) => {
   return (
     <button
-      onClick={onClick}
-      className="btn border-8 min-w-[25vh] min-h-[25vh] aspect-square"
-      aria-label="Tic Tac Toe Button"
-      tabIndex={active ? 0 : -1}
+      {...props}
+      className="btn border-base-300 border-8 size-full aspect-square shadow-xl"
+      aria-label="Field Button"
     >
       {state === "circle" && (
         <div className="relative w-full h-full animate-spawn">

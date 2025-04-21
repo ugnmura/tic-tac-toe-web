@@ -32,7 +32,7 @@ const OnlineMenu = () => {
           </Link> */}
         </div>
 
-        <Link href="/" className="btn mt-6">
+        <Link href="/" className="btn btn-outline btn-sm sm:btn-md mt-2">
           ⬅ Back to Menu
         </Link>
       </div>

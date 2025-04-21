@@ -16,11 +16,11 @@ export const metadata: Metadata = {
   title: "Tic Tac Toe",
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   return (
     <html data-theme="bento" lang="en">
       <body
@@ -31,3 +31,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export default RootLayout;

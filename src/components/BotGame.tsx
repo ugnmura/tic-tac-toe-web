@@ -1,52 +1,65 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Field from "./Field";
 import { FieldState } from "./FieldButton";
+import { useFieldState } from "@/hooks/useFieldState";
+import Scoreboard from "./Scoreboard";
+import Link from "next/link";
 
 const BotGame = () => {
-  const [states, setStates] = useState<FieldState[]>(
-    Array.from({ length: 9 }, () => "none"),
-  );
+  const { field, setCell, result, score, currentPlayer } = useFieldState();
 
-  const [currentPlayer, setCurrentPlayer] = useState<FieldState>("circle");
-
-  const playerIs = "circle";
-  const botIs = "cross";
+  const playerIs = "cross";
+  const botIs = "circle";
 
   const handleClick = (index: number) => {
-    if (currentPlayer !== playerIs || states[index] !== "none") return;
+    if (currentPlayer !== playerIs) return;
 
-    const newStates = [...states];
-    newStates[index] = playerIs;
-    setStates(newStates);
-    setCurrentPlayer(botIs);
+    setCell(index, playerIs);
   };
 
   useEffect(() => {
     if (currentPlayer !== botIs) return;
 
-    const emptyIndexes = states
+    const emptyIndexes = field
       .map((s, i) => (s === "none" ? i : null))
       .filter((i): i is number => i !== null);
 
     if (emptyIndexes.length === 0) return;
 
-    const randomIndex =
+    const findWinningMove = (who: FieldState): number | null => {
+      for (const [a, b, c] of [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6],
+      ]) {
+        const line = [field[a], field[b], field[c]];
+        const indexes = [a, b, c];
+        const count = line.filter(cell => cell === who).length;
+        const empty = line.indexOf("none");
+        if (count === 2 && empty !== -1) return indexes[empty];
+      }
+      return null;
+    };
+
+    const winningMove = findWinningMove(botIs);
+    const blockMove = findWinningMove(playerIs);
+
+    const move =
+      winningMove ?? blockMove ??
       emptyIndexes[Math.floor(Math.random() * emptyIndexes.length)];
 
     const timeout = setTimeout(() => {
-      const newStates = [...states];
-      newStates[randomIndex] = botIs;
-      setStates(newStates);
-      setCurrentPlayer(playerIs);
+      setCell(move, botIs);
     }, 500); // bot "thinking" delay
 
     return () => clearTimeout(timeout);
-  }, [currentPlayer, states]);
+  }, [currentPlayer, field]);
 
   return (
-    <div className="min-h-screen grid place-content-center px-4">
-      <Field states={states} onClick={handleClick} />
+    <div className="space-y-8">
+      <Field states={field} onClick={handleClick} result={result} />
+      <Scoreboard xLabel="Player" oLabel="Bot" xScore={score.cross} oScore={score.circle} tieScore={score.draw} />
     </div>
   );
 };

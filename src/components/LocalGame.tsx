@@ -1,31 +1,19 @@
 "use client";
-import { useState } from "react";
 import Field from "./Field";
-import { FieldState } from "./FieldButton";
+import { useFieldState } from "@/hooks/useFieldState";
+import Scoreboard from "./Scoreboard";
 
 const LocalGame = () => {
-  const [states, setStates] = useState<FieldState[]>(
-    Array.from({ length: 9 }, () => "none"),
-  );
-
-  const [currentPlayer, setCurrentPlayer] = useState<FieldState>("circle");
+  const { field, setCell, result, score, currentPlayer } = useFieldState();
 
   const handleClick = (index: number) => {
-    setStates((prevStates) => {
-      if (prevStates[index] !== "none") return prevStates;
-
-      const newStates = [...prevStates];
-      newStates[index] = currentPlayer;
-
-      setCurrentPlayer(currentPlayer === "circle" ? "cross" : "circle");
-
-      return newStates;
-    });
+    setCell(index, currentPlayer);
   };
 
   return (
-    <div className="min-h-screen grid place-content-center px-4">
-      <Field states={states} onClick={handleClick} />
+    <div className="space-y-8">
+      <Field states={field} onClick={handleClick} result={result} />
+      <Scoreboard xLabel="Player 1" oLabel="Player 2" xScore={score.cross} oScore={score.circle} tieScore={score.draw} />
     </div>
   );
 };
