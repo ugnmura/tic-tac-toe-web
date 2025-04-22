@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSpacetimeConnection } from "@/lib/hooks/useSpacetimeConnection";
 import Link from "next/link";
@@ -13,7 +13,7 @@ const generateId = () => {
   return result;
 };
 
-const CreateGamePage = () => {
+const CreateGame = () => {
   const router = useRouter();
   const [customId, setCustomId] = useState("");
   const { conn } = useSpacetimeConnection();
@@ -55,6 +55,14 @@ const CreateGamePage = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const CreateGamePage = () => {
+  return (
+    <Suspense>
+      <CreateGame />
+    </Suspense>
   );
 };
 

@@ -1,10 +1,10 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useSpacetimeConnection } from "@/lib/hooks/useSpacetimeConnection";
 
-const JoinGamePage = () => {
+const JoinGame = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const joinId = searchParams.get("id");
@@ -64,6 +64,14 @@ const JoinGamePage = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const JoinGamePage = () => {
+  return (
+    <Suspense>
+      <JoinGame />
+    </Suspense>
   );
 };
 

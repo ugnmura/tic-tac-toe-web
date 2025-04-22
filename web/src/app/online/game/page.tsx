@@ -2,9 +2,9 @@
 import OnlineGame from "@/components/OnlineGame";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
-const OnlineGamePage = () => {
+const OnlineClient = () => {
   const searchParams = useSearchParams();
   const gameId = searchParams.get("id");
   const [copied, setCopied] = useState(false);
@@ -54,6 +54,14 @@ const OnlineGamePage = () => {
         </Link>
       </div>
     </div>
+  );
+};
+
+const OnlineGamePage = () => {
+  return (
+    <Suspense>
+      <OnlineClient />
+    </Suspense>
   );
 };
 

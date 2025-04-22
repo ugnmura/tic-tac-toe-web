@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { DbConnection } from "@/lib/module_bindings";
 import { Identity } from "@clockworklabs/spacetimedb-sdk";
+import { SPACETIME_MODULE_NAME, SPACETIME_URL } from "@/lib/env";
 
 interface SpacetimeContextProps {
   conn: DbConnection | null;
@@ -31,10 +32,10 @@ export const SpacetimeProvider: React.FC<PropsWithChildren> = ({
     const token = localStorage.getItem("auth_token") || "";
 
     const connection = DbConnection.builder()
-      .withUri("ws://localhost:3000")
-      .withModuleName("tictactoe")
+      .withUri(SPACETIME_URL)
+      .withModuleName(SPACETIME_MODULE_NAME)
       .withToken(token)
-      .onConnect((conn, identity, token) => {
+      .onConnect((_conn, identity, token) => {
         setIdentity(identity);
         setConnected(true);
         localStorage.setItem("auth_token", token);
