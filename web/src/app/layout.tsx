@@ -13,7 +13,32 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tic Tac Toe",
+  title: {
+    default: "Tic Tac Toe",
+    template: "%s | Tic Tac Toe",
+  },
+  description: "Play Tic Tac Toe online with friends.",
+  keywords: ["tic tac toe", "game", "online", "multiplayer"],
+  openGraph: {
+    title: "Tic Tac Toe",
+    description: "Play Tic Tac Toe online with friends.",
+    url: "https://tictactoe.sushiwaumai.com",
+    siteName: "Tic Tac Toe",
+    images: [
+      {
+        url: "https://tictactoe.sushiwaumai.com/icon.jpeg",
+        alt: "Tic Tac Toe Game",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tic Tac Toe",
+    description: "Play Tic Tac Toe online with friends.",
+    images: ["https://tictactoe.sushiwaumai.com/icon.jpeg"],
+  },
 };
 
 const RootLayout = ({
@@ -30,6 +55,6 @@ const RootLayout = ({
       </body>
     </html>
   );
-}
+};
 
 export default RootLayout;
