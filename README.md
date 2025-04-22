@@ -1,5 +1,10 @@
 # Tic Tac Toe Web
 
-Tic Tac Toe Web is a web-based implementation of the classic game Tic Tac Toe. It allows two players to play against each other in a browser, with a simple and intuitive interface.
+This Project is a web-based implementation of the classic Tic Tac Toe game.
 
-Note: This project is still in progress.
+It supports:
+- **Local Multiplayer**: Play with a friend on the same device.
+- **Online Multiplayer**: Challenge friends or other players over the internet.
+- **Single Player (Bot)**: Test your skills against an AI opponent.
+
+👉 [**Play Now**](https://tictactoe.sushiwaumai.com)
