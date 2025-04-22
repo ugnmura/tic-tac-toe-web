@@ -1,10 +1,9 @@
 "use client";
 import { useEffect } from "react";
-import Field from "./Field";
-import { FieldState } from "./FieldButton";
-import { useFieldState } from "@/hooks/useFieldState";
-import Scoreboard from "./Scoreboard";
-import Link from "next/link";
+import Field from "@/components/Field";
+import { FieldState } from "@/components/FieldButton";
+import { useFieldState } from "@/lib/hooks/useFieldState";
+import Scoreboard from "@/components/Scoreboard";
 
 const BotGame = () => {
   const { field, setCell, result, score, currentPlayer } = useFieldState();
@@ -29,13 +28,18 @@ const BotGame = () => {
 
     const findWinningMove = (who: FieldState): number | null => {
       for (const [a, b, c] of [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8],
-        [0, 3, 6], [1, 4, 7], [2, 5, 8],
-        [0, 4, 8], [2, 4, 6],
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
       ]) {
         const line = [field[a], field[b], field[c]];
         const indexes = [a, b, c];
-        const count = line.filter(cell => cell === who).length;
+        const count = line.filter((cell) => cell === who).length;
         const empty = line.indexOf("none");
         if (count === 2 && empty !== -1) return indexes[empty];
       }
@@ -46,7 +50,8 @@ const BotGame = () => {
     const blockMove = findWinningMove(playerIs);
 
     const move =
-      winningMove ?? blockMove ??
+      winningMove ??
+      blockMove ??
       emptyIndexes[Math.floor(Math.random() * emptyIndexes.length)];
 
     const timeout = setTimeout(() => {
@@ -54,12 +59,18 @@ const BotGame = () => {
     }, 500); // bot "thinking" delay
 
     return () => clearTimeout(timeout);
-  }, [currentPlayer, field]);
+  }, [setCell, currentPlayer, field]);
 
   return (
     <div className="space-y-8">
       <Field states={field} onClick={handleClick} result={result} />
-      <Scoreboard xLabel="Player" oLabel="Bot" xScore={score.cross} oScore={score.circle} tieScore={score.draw} />
+      <Scoreboard
+        xLabel="Player"
+        oLabel="Bot"
+        xScore={score.cross}
+        oScore={score.circle}
+        tieScore={score.draw}
+      />
     </div>
   );
 };

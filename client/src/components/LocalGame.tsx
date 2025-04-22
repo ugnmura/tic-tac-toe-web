@@ -1,7 +1,7 @@
 "use client";
-import Field from "./Field";
-import { useFieldState } from "@/hooks/useFieldState";
-import Scoreboard from "./Scoreboard";
+import Field from "@/components/Field";
+import { useFieldState } from "@/lib/hooks/useFieldState";
+import Scoreboard from "@/components/Scoreboard";
 
 const LocalGame = () => {
   const { field, setCell, result, score, currentPlayer } = useFieldState();
@@ -13,7 +13,13 @@ const LocalGame = () => {
   return (
     <div className="space-y-8">
       <Field states={field} onClick={handleClick} result={result} />
-      <Scoreboard xLabel="Player 1" oLabel="Player 2" xScore={score.cross} oScore={score.circle} tieScore={score.draw} />
+      <Scoreboard
+        xLabel="Player 1"
+        oLabel="Player 2"
+        xScore={score.cross}
+        oScore={score.circle}
+        tieScore={score.draw}
+      />
     </div>
   );
 };

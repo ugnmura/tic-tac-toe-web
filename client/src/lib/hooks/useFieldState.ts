@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { FieldState } from "../components/FieldButton";
+import { FieldState } from "@/components/FieldButton";
 
 export type GameResult = FieldState | "draw" | "none";
 
-const initialField = () => Array.from({ length: 9 }, () => "none" as FieldState);
+const initialField = () =>
+  Array.from({ length: 9 }, () => "none" as FieldState);
 
 const WIN_PATTERNS = [
   [0, 1, 2],
@@ -36,20 +37,23 @@ export const useFieldState = (autoResetDelay: number = 1000) => {
         return field[a];
       }
     }
-    return field.every(cell => cell !== "none") ? "draw" : "none";
+    return field.every((cell) => cell !== "none") ? "draw" : "none";
   }, [field]);
 
-  const setCell = useCallback((index: number, value: FieldState) => {
-    if (field[index] !== "none" || result !== "none") return;
+  const setCell = useCallback(
+    (index: number, value: FieldState) => {
+      if (field[index] !== "none" || result !== "none") return;
 
-    setField((prev) => {
-      const updated = [...prev];
-      updated[index] = value;
-      return updated;
-    });
+      setField((prev) => {
+        const updated = [...prev];
+        updated[index] = value;
+        return updated;
+      });
 
-    setCurrentPlayer((prev) => (prev === "circle" ? "cross" : "circle"));
-  }, [field, result]);
+      setCurrentPlayer((prev) => (prev === "circle" ? "cross" : "circle"));
+    },
+    [field, result],
+  );
 
   const reset = useCallback(() => {
     const nextStartingPlayer = startingPlayer === "circle" ? "cross" : "circle";
