@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const OnlineMenu = () => {
   return (
     <div className="min-h-screen grid place-content-center bg-base-200 text-base-content px-4">
@@ -12,29 +10,29 @@ const OnlineMenu = () => {
         </p>
 
         <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap justify-center">
-          <Link
+          <a
             href="/online/create"
             className="btn btn-primary btn-lg text-lg sm:text-xl shadow"
           >
             ➕ Create Match
-          </Link>
-          <Link
+          </a>
+          <a
             href="/online/join"
             className="btn btn-outline btn-lg text-lg sm:text-xl shadow"
           >
             🔗 Join Match
-          </Link>
-          {/* <Link
+          </a>
+          {/* <a
             href="/online/random"
             className="btn btn-accent btn-lg text-lg sm:text-xl shadow"
           >
             🎲 Random Match
-          </Link> */}
+          </a> */}
         </div>
 
-        <Link href="/" className="btn btn-outline btn-sm sm:btn-md mt-2">
+        <a href="/" className="btn btn-outline btn-sm sm:btn-md mt-2">
           ⬅ Back to Menu
-        </Link>
+        </a>
       </div>
     </div>
   );

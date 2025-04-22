@@ -1,6 +1,5 @@
 "use client";
 import OnlineGame from "@/components/OnlineGame";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 
@@ -41,17 +40,17 @@ const OnlineClient = () => {
           </>
         ) : (
           <div className="text-center">
-            <Link href="/online" className="btn btn-outline btn-lg mt-4">
+            <a href="/online" className="btn btn-outline btn-lg mt-4">
               🏠 Back to Online
-            </Link>
+            </a>
           </div>
         )}
       </div>
 
       <div className="text-center p-8">
-        <Link href="/" className="btn btn-outline btn-sm sm:btn-md mt-2">
+        <a href="/" className="btn btn-outline btn-sm sm:btn-md mt-2">
           ⬅ Leave Game
-        </Link>
+        </a>
       </div>
     </div>
   );

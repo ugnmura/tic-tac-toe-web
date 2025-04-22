@@ -1,5 +1,4 @@
 import BotGame from "@/components/BotGame";
-import Link from "next/link";
 
 const BotGamePage = () => {
   return (
@@ -9,9 +8,9 @@ const BotGamePage = () => {
       </div>
 
       <div className="text-center p-8">
-        <Link href="/" className="btn btn-outline btn-sm sm:btn-md mt-2">
+        <a href="/" className="btn btn-outline btn-sm sm:btn-md mt-2">
           ⬅ Leave Game
-        </Link>
+        </a>
       </div>
     </div>
   );

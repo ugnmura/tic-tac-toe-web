@@ -1,8 +1,6 @@
 "use client";
 import { Suspense, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useSpacetimeConnection } from "@/lib/hooks/useSpacetimeConnection";
-import Link from "next/link";
 
 const generateId = () => {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -14,7 +12,6 @@ const generateId = () => {
 };
 
 const CreateGame = () => {
-  const router = useRouter();
   const [customId, setCustomId] = useState("");
   const { conn } = useSpacetimeConnection();
 
@@ -23,7 +20,7 @@ const CreateGame = () => {
     const id = customId.trim() || generateId();
     try {
       conn.reducers.createGame(id);
-      router.push(`/online/game?id=${id}`);
+      window.location.href = `/online/game?id=${id}`;
     } catch (err) {
       alert("Could not create game: " + (err as Error).message);
     }
@@ -49,9 +46,9 @@ const CreateGame = () => {
         </button>
 
         <div>
-          <Link href="/online" className="btn btn-sm btn-outline">
+          <a href="/online" className="btn btn-sm btn-outline">
             ⬅ Back
-          </Link>
+          </a>
         </div>
       </div>
     </div>

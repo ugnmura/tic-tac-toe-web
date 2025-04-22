@@ -1,11 +1,9 @@
 "use client";
 import { Suspense, useCallback, useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useSpacetimeConnection } from "@/lib/hooks/useSpacetimeConnection";
 
 const JoinGame = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const joinId = searchParams.get("id");
 
@@ -18,12 +16,12 @@ const JoinGame = () => {
       const id = gameId.toUpperCase().trim();
       try {
         conn.reducers.joinGame(id);
-        router.push(`/online/game?id=${id}`);
+        window.location.href = `/online/game?id=${id}`;
       } catch (err) {
         alert("Could not join game: " + (err as Error).message);
       }
     },
-    [conn, router],
+    [conn],
   );
 
   useEffect(() => {
@@ -58,9 +56,9 @@ const JoinGame = () => {
         </button>
 
         <div>
-          <Link href="/online" className="btn btn-sm btn-outline">
+          <a href="/online" className="btn btn-sm btn-outline">
             ⬅ Back
-          </Link>
+          </a>
         </div>
       </div>
     </div>
